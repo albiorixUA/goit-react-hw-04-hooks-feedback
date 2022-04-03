@@ -9,6 +9,8 @@ export default function CounterFeedback() {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
+  const feedbackStatus = { good, neutral, bad };
+
   const countFeedback = options => {
     switch (options) {
       case 'good':
@@ -37,14 +39,14 @@ export default function CounterFeedback() {
     <>
       <Section title="Please leave feedback">
         <FeedbackOptions
-          options={['good', 'neutral', 'bad']}
+          options={Object.keys(feedbackStatus)}
           onLeaveFeedback={countFeedback}
         />
       </Section>
       <Section title="Statisctics">
         {countTotalFeedback() > 0 ? (
           <Statisctics
-            options={Object.entries({ good: good, neutral: neutral, bad: bad })}
+            options={Object.entries(feedbackStatus)}
             total={countTotalFeedback()}
             positivePercentage={countPositiveFeedbackPercentage()}
           />
